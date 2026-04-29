@@ -3,21 +3,914 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stella Polare Institute</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Cinzel:wght@400&display=swap" rel="stylesheet">
+<title>Il Capitale — Stella Polare Institute</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
-  body { background: #f2ede6; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; font-family: 'Cormorant Garamond', serif; }
-  .wrap { text-align: center; }
-  p { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.4em; color: #8a8670; text-transform: uppercase; margin-bottom: 24px; }
-  h1 { font-size: 36px; font-weight: 300; font-style: italic; color: #3d4038; margin-bottom: 32px; }
-  a { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.3em; color: #8a8670; text-decoration: none; text-transform: uppercase; border-bottom: 1px solid #c4cab8; padding-bottom: 3px; }
+  :root {
+    --stone: #e8e4dc;
+    --linen: #f2ede6;
+    --parchment: #ede8df;
+    --olive-pale: #b8b49a;
+    --olive-mid: #6b6856;
+    --lichen: #9aa08a;
+    --lichen-pale: #c4cab8;
+    --slate: #4a4e46;
+    --deep-slate: #3d4038;
+    --ink: #2a2c26;
+    --white-warm: #faf8f4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--linen);
+    color: var(--ink);
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 400;
+    line-height: 1.75;
+    font-size: 17px;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 24px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(242,237,230,0.97) 0%, rgba(242,237,230,0) 100%);
+  }
+
+  .nav-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    color: var(--deep-slate);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .nav-back {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    letter-spacing: 0.15em;
+    color: var(--slate);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-back::before { content: '←'; font-size: 16px; }
+  .nav-back:hover { color: var(--ink); }
+
+  .hero {
+    padding: 180px 60px 100px;
+    text-align: center;
+    background: linear-gradient(175deg, var(--white-warm) 0%, var(--linen) 40%, var(--parchment) 100%);
+  }
+
+  .eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    color: var(--olive-mid);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 1.2s ease forwards 0.3s;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 6vw, 68px);
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 1.4s ease forwards 0.6s;
+  }
+
+  .hero-title em { font-style: italic; color: var(--olive-mid); }
+
+  .hero-sub {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    color: var(--olive-mid);
+    text-transform: uppercase;
+    margin-bottom: 60px;
+    opacity: 0;
+    animation: fadeUp 1.4s ease forwards 0.9s;
+  }
+
+  .hero-divider {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--olive-pale), transparent);
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeUp 1.4s ease forwards 1.1s;
+  }
+
+  .section-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--lichen-pale), transparent);
+  }
+
+  .content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 100px 60px;
+  }
+
+  /* BLOCKS */
+  .data-block {
+    margin-bottom: 80px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  .data-block.visible { opacity: 1; transform: translateY(0); }
+
+  .block-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--lichen-pale);
+  }
+
+  .block-numeral {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--olive-mid);
+    letter-spacing: 0.15em;
+    flex-shrink: 0;
+  }
+
+  .block-title-italian {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--deep-slate);
+    line-height: 1.2;
+  }
+
+  .block-title-english {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--olive-mid);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* DATA ROWS */
+  .data-rows { display: flex; flex-direction: column; }
+
+  .data-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--lichen-pale);
+  }
+
+  .data-row:first-child { border-top: 1px solid var(--lichen-pale); }
+
+  .data-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--olive-mid);
+    text-transform: uppercase;
+    padding: 24px 32px 24px 0;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid var(--lichen-pale);
+  }
+
+  .data-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    color: var(--deep-slate);
+    padding: 24px 0 24px 32px;
+    display: flex;
+    align-items: center;
+    line-height: 1.5;
+  }
+
+  /* PROSE */
+  .prose-note {
+    margin-top: 20px;
+    padding: 24px 32px;
+    background: var(--white-warm);
+    border-left: 2px solid var(--lichen-pale);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .prose-note p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--slate);
+    line-height: 1.8;
+    font-style: italic;
+  }
+
+  /* TIER TABLE */
+  .tier-table {
+    width: 100%;
+    border: 1px solid var(--lichen-pale);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .tier-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    border-bottom: 1px solid var(--lichen-pale);
+    transition: background 0.3s;
+  }
+
+  .tier-row:last-child { border-bottom: none; }
+  .tier-row:hover { background: var(--parchment); }
+
+  .tier-row.header {
+    background: var(--deep-slate);
+  }
+
+  .tier-row.header:hover { background: var(--deep-slate); }
+
+  .tier-row.anchor-row {
+    background: var(--deep-slate);
+  }
+
+  .tier-row.anchor-row:hover { background: var(--ink); }
+
+  .tier-cell {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    color: var(--deep-slate);
+    padding: 20px 28px;
+    border-right: 1px solid var(--lichen-pale);
+    display: flex;
+    align-items: center;
+  }
+
+  .tier-cell:last-child { border-right: none; }
+
+  .tier-cell.header-cell {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--lichen-pale);
+    text-transform: uppercase;
+    border-color: rgba(196,202,184,0.15);
+  }
+
+  .tier-cell.anchor-cell {
+    color: var(--stone);
+    border-color: rgba(196,202,184,0.15);
+  }
+
+  .tier-cell.highlight {
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .tier-cell.ops-cell { color: var(--slate); }
+
+  /* LADDER */
+  .ladder {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border: 1px solid var(--lichen-pale);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .ladder-item {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    background: var(--white-warm);
+    border-bottom: 1px solid var(--lichen-pale);
+    transition: background 0.3s;
+  }
+
+  .ladder-item:last-child { border-bottom: none; }
+  .ladder-item:hover { background: var(--parchment); }
+
+  .ladder-item.milestone {
+    background: var(--parchment);
+  }
+
+  .ladder-milestone-label {
+    padding: 28px 24px;
+    border-right: 1px solid var(--lichen-pale);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .ladder-tag {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--olive-mid);
+    text-transform: uppercase;
+  }
+
+  .ladder-figure {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    color: var(--deep-slate);
+    font-weight: 300;
+    line-height: 1.2;
+  }
+
+  .ladder-content {
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .ladder-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--deep-slate);
+  }
+
+  .ladder-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    color: var(--slate);
+    line-height: 1.6;
+  }
+
+  .ladder-note {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--olive-mid);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* DARK BLOCK */
+  .data-block-dark {
+    background: var(--deep-slate);
+    border-radius: 4px;
+    padding: 60px;
+    margin-bottom: 80px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  .data-block-dark.visible { opacity: 1; transform: translateY(0); }
+  .data-block-dark .block-header { border-color: rgba(196,202,184,0.15); }
+  .data-block-dark .block-numeral { color: var(--olive-pale); }
+  .data-block-dark .block-title-italian { color: var(--stone); }
+  .data-block-dark .block-title-english { color: var(--olive-pale); }
+  .data-block-dark .data-row { border-color: rgba(196,202,184,0.12); }
+  .data-block-dark .data-row:first-child { border-color: rgba(196,202,184,0.12); }
+  .data-block-dark .data-label { color: var(--olive-pale); border-color: rgba(196,202,184,0.12); font-size: 10px; }
+  .data-block-dark .data-value { color: var(--stone); font-size: 19px; }
+
+  /* DONOR GRID */
+  .donor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    border: 1px solid var(--lichen-pale);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .donor-card {
+    background: var(--white-warm);
+    padding: 36px 32px;
+    border-right: 1px solid var(--lichen-pale);
+    border-bottom: 1px solid var(--lichen-pale);
+    transition: background 0.3s;
+  }
+
+  .donor-card:hover { background: var(--parchment); }
+  .donor-card:nth-child(2n) { border-right: none; }
+  .donor-card:nth-last-child(-n+2) { border-bottom: none; }
+
+  .donor-card-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--olive-mid);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--lichen-pale);
+  }
+
+  .donor-card-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--slate);
+    line-height: 1.7;
+  }
+
+  /* CLOSING NOTE */
+  .closing-note {
+    margin-top: 80px;
+    padding: 48px;
+    background: var(--white-warm);
+    border: 1px solid var(--lichen-pale);
+    border-radius: 4px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  .closing-note.visible { opacity: 1; transform: translateY(0); }
+
+  .closing-star {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    color: var(--lichen-pale);
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .closing-title {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--olive-mid);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .closing-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-style: italic;
+    color: var(--slate);
+    line-height: 1.8;
+    max-width: 620px;
+    margin: 0 auto 24px;
+  }
+
+  .closing-detail {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--lichen-pale);
+    text-transform: uppercase;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 60px;
+    text-align: center;
+  }
+
+  .footer-star {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    color: var(--olive-pale);
+    display: block;
+    margin-bottom: 20px;
+    opacity: 0.6;
+  }
+
+  .footer-name {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    color: var(--lichen-pale);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .footer-reg {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    color: var(--olive-mid);
+    font-style: italic;
+    margin-bottom: 32px;
+  }
+
+  .footer-divider {
+    width: 40px;
+    height: 1px;
+    background: var(--olive-mid);
+    margin: 0 auto 32px;
+    opacity: 0.4;
+  }
+
+  .footer-nav {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+
+  .footer-nav a {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--lichen-pale);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .footer-nav a:hover { color: var(--olive-pale); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .hero { padding: 140px 24px 80px; }
+    .content { padding: 60px 24px; }
+    .data-row { grid-template-columns: 1fr; }
+    .data-label { border-right: none; padding: 20px 0 8px; }
+    .data-value { padding: 0 0 20px; }
+    .tier-row { grid-template-columns: 1fr; }
+    .tier-cell { border-right: none; border-bottom: 1px solid var(--lichen-pale); }
+    .ladder-item { grid-template-columns: 1fr; }
+    .ladder-milestone-label { border-right: none; border-bottom: 1px solid var(--lichen-pale); }
+    .donor-grid { grid-template-columns: 1fr; }
+    .donor-card:nth-child(2n) { border-right: none; }
+    .data-block-dark { padding: 40px 24px; }
+    footer { padding: 60px 24px; }
+    .footer-nav { gap: 24px; }
+  }
 </style>
 </head>
+
 <body>
-<div class="wrap">
-  <p>Stella Polare Institute</p>
-  <h1>In preparation</h1>
-  <a href="/portal">← Return to Portal</a>
+
+<nav>
+  <a href="https://stellapolare.institute" class="nav-logo">Stella Polare Institute</a>
+  <a href="/Portal" class="nav-back">Return to Portal</a>
+</nav>
+
+<div class="hero">
+  <p class="eyebrow">Portal · Room V · Endowment Architecture</p>
+  <h1 class="hero-title">Il <em>Capitale</em></h1>
+  <p class="hero-sub">Locked Principal Endowment — Capital Structure & Investment Architecture</p>
+  <div class="hero-divider"></div>
 </div>
+
+<div class="section-divider"></div>
+
+<div class="content">
+
+  <!-- I — THE ENDOWMENT PRINCIPLE -->
+  <div class="data-block">
+    <div class="block-header">
+      <span class="block-numeral">I</span>
+      <div>
+        <div class="block-title-italian">Il Principio</div>
+        <div class="block-title-english">The Endowment Principle</div>
+      </div>
+    </div>
+    <div class="data-rows">
+      <div class="data-row">
+        <span class="data-label">Capital becomes Principal</span>
+        <span class="data-value">Contributions are not spent — they are transformed into a permanent, managed investment base</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Principal produces Yield</span>
+        <span class="data-value">The endowment is managed to generate consistent financial returns across all market conditions</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Yield sustains the Work</span>
+        <span class="data-value">Only the generated yield funds operations and conservation — principal is never touched</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Principal Authority</span>
+        <span class="data-value">R0 — the Board may not withdraw, pledge, or expend principal under any circumstances</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Independent Oversight</span>
+        <span class="data-value">Rayfin Finance — independent financial monitoring, quarterly portfolio reporting, risk oversight</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Investment Governance</span>
+        <span class="data-value">Board-approved Investment Policy Statement — defines asset classes, risk tolerance, benchmarks, rebalancing</span>
+      </div>
+    </div>
+    <div class="prose-note">
+      <p>This architecture liberates the Institute from fundraising cycles. Conservation operates on ecological timescales — decades and centuries. The endowment model aligns institutional finance with that reality, enabling patient, multi-generational stewardship without dependence on the short-term cycles that undermine most conservation efforts.</p>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- II — CAPITAL TIERS -->
+  <div class="data-block" style="margin-top: 80px;">
+    <div class="block-header">
+      <span class="block-numeral">II</span>
+      <div>
+        <div class="block-title-italian">La Struttura dei Livelli</div>
+        <div class="block-title-english">Capital Tiers & Allocation Logic</div>
+      </div>
+    </div>
+    <div class="tier-table">
+      <div class="tier-row header">
+        <div class="tier-cell header-cell">Contribution Range</div>
+        <div class="tier-cell header-cell">Locked Principal</div>
+        <div class="tier-cell header-cell">Operations</div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-cell">R0 — R1 Million</div>
+        <div class="tier-cell ops-cell">0%</div>
+        <div class="tier-cell highlight">100% — Direct to Operations</div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-cell">R1 — R5 Million</div>
+        <div class="tier-cell highlight">50%</div>
+        <div class="tier-cell ops-cell">50%</div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-cell">R5 — R10 Million</div>
+        <div class="tier-cell highlight">60%</div>
+        <div class="tier-cell ops-cell">40%</div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-cell">R10 — R15 Million</div>
+        <div class="tier-cell highlight">70%</div>
+        <div class="tier-cell ops-cell">30%</div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-cell">R15 — R20 Million</div>
+        <div class="tier-cell highlight">80%</div>
+        <div class="tier-cell ops-cell">20%</div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-cell">R20 — R25 Million</div>
+        <div class="tier-cell highlight">90%</div>
+        <div class="tier-cell ops-cell">10%</div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-cell">R25 — R30 Million</div>
+        <div class="tier-cell highlight">95%</div>
+        <div class="tier-cell ops-cell">5%</div>
+      </div>
+      <div class="tier-row anchor-row">
+        <div class="tier-cell anchor-cell">Above R30 Million</div>
+        <div class="tier-cell anchor-cell" style="font-size: 20px; font-weight: 400;">100%</div>
+        <div class="tier-cell anchor-cell" style="font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;">Anchor Status</div>
+      </div>
+    </div>
+    <div class="prose-note">
+      <p>The first tier — R0 to R1 Million — goes directly to operations. Smaller contributions fund the work immediately with no abstraction. As contribution values increase, allocation shifts progressively toward permanent capital, accelerating the endowment base while sustaining institutional operations through the formation phase.</p>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- III — INVESTMENT LADDER -->
+  <div class="data-block" style="margin-top: 80px;">
+    <div class="block-header">
+      <span class="block-numeral">III</span>
+      <div>
+        <div class="block-title-italian">La Scala</div>
+        <div class="block-title-english">The Investment Ladder — Milestones & Operational Capacity</div>
+      </div>
+    </div>
+    <div class="ladder">
+      <div class="ladder-item">
+        <div class="ladder-milestone-label">
+          <span class="ladder-tag">Survival Baseline</span>
+          <span class="ladder-figure">~R2.5M<br>yield / year</span>
+        </div>
+        <div class="ladder-content">
+          <span class="ladder-title">Institutional Continuity</span>
+          <span class="ladder-desc">Leadership presence maintained, legal compliance secured, governance systems operational. The minimum viable institutional floor.</span>
+        </div>
+      </div>
+      <div class="ladder-item">
+        <div class="ladder-milestone-label">
+          <span class="ladder-tag">Stable Footing</span>
+          <span class="ladder-figure">~R5M<br>yield / year</span>
+        </div>
+        <div class="ladder-content">
+          <span class="ladder-title">Full Operational Stability</span>
+          <span class="ladder-desc">Full leadership capacity, advisory input active, systems intelligence operational, core governance fully funded and functioning.</span>
+        </div>
+      </div>
+      <div class="ladder-item milestone">
+        <div class="ladder-milestone-label">
+          <span class="ladder-tag">First Milestone</span>
+          <span class="ladder-figure">R100M<br>principal</span>
+        </div>
+        <div class="ladder-content">
+          <span class="ladder-title">Self-Sustaining Institutional Base</span>
+          <span class="ladder-desc">At a target 7% gross yield — R7M generated annually. Reinvestment floor activates: 2.5% reinvested permanently to counter inflation and compound the base. 4–4.5% deployed to governance, research coordination, and conservation methodology.</span>
+          <span class="ladder-note">Reinvestment floor activates at this milestone</span>
+        </div>
+      </div>
+      <div class="ladder-item milestone">
+        <div class="ladder-milestone-label">
+          <span class="ladder-tag">Full Mandate</span>
+          <span class="ladder-figure">R250M<br>principal</span>
+        </div>
+        <div class="ladder-content">
+          <span class="ladder-title">Landscape-Scale Restoration Capacity</span>
+          <span class="ladder-desc">At 7% gross yield — R17.5M annually. 2.5% reinvested. 4–4.5% operational — R10–12M directed toward alien clearing, watershed restoration, corridor rehabilitation, and ecological research. Deployed in perpetuity.</span>
+          <span class="ladder-note">Upper reach — full ecological mandate activated</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IV — YIELD ARCHITECTURE — DARK -->
+  <div class="data-block-dark">
+    <div class="block-header">
+      <span class="block-numeral">IV</span>
+      <div>
+        <div class="block-title-italian">L'Architettura del Rendimento</div>
+        <div class="block-title-english">Yield Architecture & Financial Controls</div>
+      </div>
+    </div>
+    <div class="data-rows">
+      <div class="data-row">
+        <span class="data-label">Target Return</span>
+        <span class="data-value">7% gross annual yield</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Reinvestment Floor</span>
+        <span class="data-value">2.5% of principal — activates at R100M — permanent, reviewed annually by the Board</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Operational Yield</span>
+        <span class="data-value">4–4.5% — conservation, governance, and research deployment</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Commingling</span>
+        <span class="data-value">Prohibited — principal and operational funds held in separate designated accounts at all times</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Dual Authorisation</span>
+        <span class="data-value">All EFTs require Executive Director initiation and independent Rayfin Finance or NED approval</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Accounting System</span>
+        <span class="data-value">Xero cloud-based — automated audit trail, version control, role-based access, MFA required</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Record Retention</span>
+        <span class="data-value">Minimum 7 years — financial records. Governance records retained permanently.</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Annual Assurance</span>
+        <span class="data-value">External independent review or audit — scope and provider approved by Board resolution annually</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- V — DONOR FRAMEWORK -->
+  <div class="data-block">
+    <div class="block-header">
+      <span class="block-numeral">V</span>
+      <div>
+        <div class="block-title-italian">Il Quadro dei Donatori</div>
+        <div class="block-title-english">Donor Framework & Rights</div>
+      </div>
+    </div>
+    <div class="donor-grid">
+      <div class="donor-card">
+        <p class="donor-card-label">Governance Rights</p>
+        <p class="donor-card-body">Contributions do not confer Board positions, voting rights, or decision-making authority. Board appointments are at the sole discretion of the existing Board based on fiduciary alignment — independent of financial input.</p>
+      </div>
+      <div class="donor-card">
+        <p class="donor-card-label">Operational Independence</p>
+        <p class="donor-card-body">Donors may not direct the use of funds or influence programme decisions. Once contributed, funds are governed exclusively by Board resolution and the Investment Policy Statement.</p>
+      </div>
+      <div class="donor-card">
+        <p class="donor-card-label">Recognition</p>
+        <p class="donor-card-body">Default recognition is private and discreet. Public acknowledgement is entirely at the donor's discretion. The Institute does not offer naming rights or promotional positioning that could compromise institutional independence.</p>
+      </div>
+      <div class="donor-card">
+        <p class="donor-card-label">Reporting</p>
+        <p class="donor-card-body">Contributors receive an Annual Institutional Update and an Endowment Performance Summary — high-level oversight of financial performance, capital preservation, and public benefit impact. Double Materiality format.</p>
+      </div>
+      <div class="donor-card">
+        <p class="donor-card-label">Tax Position</p>
+        <p class="donor-card-body">PBO status application in progress. Section 18A approval being pursued — will enable tax-deductible contributions for South African taxpayers. This page will be updated upon confirmation.</p>
+      </div>
+      <div class="donor-card">
+        <p class="donor-card-label">Contribution Enquiries</p>
+        <p class="donor-card-body">For anchor contribution correspondence and due diligence discussions: <strong>anchors@stellapolare.institute</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VI — BANKING — DARK -->
+  <div class="data-block-dark">
+    <div class="block-header">
+      <span class="block-numeral">VI</span>
+      <div>
+        <div class="block-title-italian">Dettagli Bancari</div>
+        <div class="block-title-english">Banking Details — Execute Contribution</div>
+      </div>
+    </div>
+    <div class="data-rows">
+      <div class="data-row">
+        <span class="data-label">Account Name</span>
+        <span class="data-value">Stella Polare Institute NPC</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Bank</span>
+        <span class="data-value">First National Bank</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Account Number</span>
+        <span class="data-value">63200985175</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Branch Code</span>
+        <span class="data-value">255355</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Swift Code</span>
+        <span class="data-value">FIRNZAJJ</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Payment Reference</span>
+        <span class="data-value">Endowment</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLOSING NOTE -->
+  <div class="closing-note">
+    <span class="closing-star">✦</span>
+    <p class="closing-title">A Quiet Institution</p>
+    <p class="closing-body">Long-horizon institutions do not emerge through rapid public expansion. They are built through the quiet strengthening of foundations — allowing the institutional architecture to mature without the pressure of spectacle, so that when the Institute acts, it does so from a position of permanent strength.</p>
+    <p class="closing-detail">STR-FIN-001-K5 · Locked Principal Strategy · Adopted 29 March 2026 · King V Compliant</p>
+  </div>
+
+</div>
+
+<footer>
+  <span class="footer-star">✦</span>
+  <p class="footer-name">Stella Polare Institute</p>
+  <p class="footer-reg">Non-Profit Company · Reg. 2026/068067/08 · Stellenbosch, South Africa</p>
+  <div class="footer-divider"></div>
+  <div class="footer-nav">
+    <a href="/Portal">← Portal Hub</a>
+    <a href="/Portal/Legal">Legal</a>
+    <a href="/Portal/MOI">MOI</a>
+    <a href="/Portal/Governance">Governance</a>
+    <a href="/Portal/Corridor">Corridor</a>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.data-block, .data-block-dark, .closing-note').forEach(el => observer.observe(el));
+</script>
+
 </body>
 </html>
