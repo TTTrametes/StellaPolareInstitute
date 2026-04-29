@@ -1,24 +1,563 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stella Polare Institute</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Cinzel:wght@400&display=swap" rel="stylesheet">
+<title>Legal Standing — Stella Polare Institute</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
-  body { background: #f2ede6; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; font-family: 'Cormorant Garamond', serif; }
-  .wrap { text-align: center; }
-  p { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.4em; color: #8a8670; text-transform: uppercase; margin-bottom: 24px; }
-  h1 { font-size: 36px; font-weight: 300; font-style: italic; color: #3d4038; margin-bottom: 32px; }
-  a { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.3em; color: #8a8670; text-decoration: none; text-transform: uppercase; border-bottom: 1px solid #c4cab8; padding-bottom: 3px; }
+  :root {
+    --stone: #e8e4dc;
+    --linen: #f2ede6;
+    --parchment: #ede8df;
+    --olive-pale: #b8b49a;
+    --olive-mid: #6b6856;
+    --lichen: #9aa08a;
+    --lichen-pale: #c4cab8;
+    --slate: #6a6e64;
+    --deep-slate: #3d4038;
+    --ink: #2a2c26;
+    --white-warm: #faf8f4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--linen);
+    color: var(--ink);
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 400;
+    line-height: 1.75;
+    font-size: 16px;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 24px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(242,237,230,0.97) 0%, rgba(242,237,230,0) 100%);
+  }
+
+  .nav-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    color: var(--deep-slate);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .nav-back {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    letter-spacing: 0.15em;
+    color: var(--slate);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-back::before { content: '←'; font-size: 16px; }
+  .nav-back:hover { color: var(--ink); }
+
+  /* HERO */
+  .hero {
+    padding: 180px 60px 100px;
+    text-align: center;
+    background: linear-gradient(175deg, var(--white-warm) 0%, var(--linen) 40%, var(--parchment) 100%);
+  }
+
+  .eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--olive-mid);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 1.2s ease forwards 0.3s;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 6vw, 68px);
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 1.4s ease forwards 0.6s;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--olive-mid);
+  }
+
+  .hero-sub {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    color: var(--olive-mid);
+    text-transform: uppercase;
+    margin-bottom: 60px;
+    opacity: 0;
+    animation: fadeUp 1.4s ease forwards 0.9s;
+  }
+
+  .hero-divider {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--olive-pale), transparent);
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeUp 1.4s ease forwards 1.1s;
+  }
+
+  /* SECTION DIVIDER */
+  .section-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--lichen-pale), transparent);
+  }
+
+  /* MAIN CONTENT */
+  .content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 100px 60px;
+  }
+
+  /* BLOCK */
+  .data-block {
+    margin-bottom: 80px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  .data-block.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .block-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--lichen-pale);
+  }
+
+  .block-numeral {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--lichen-pale);
+    letter-spacing: 0.15em;
+    flex-shrink: 0;
+  }
+
+  .block-title-italian {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--deep-slate);
+    line-height: 1.2;
+  }
+
+  .block-title-english {
+    font-family: 'Cinzel', serif;
+    font-size: 8px;
+    letter-spacing: 0.35em;
+    color: var(--olive-mid);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* DATA ROWS */
+  .data-rows { display: flex; flex-direction: column; gap: 0; }
+
+  .data-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--lichen-pale);
+  }
+
+  .data-row:first-child { border-top: 1px solid var(--lichen-pale); }
+
+  .data-label {
+    font-family: 'Cinzel', serif;
+    font-size: 8px;
+    letter-spacing: 0.35em;
+    color: var(--olive-mid);
+    text-transform: uppercase;
+    padding: 24px 32px 24px 0;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid var(--lichen-pale);
+  }
+
+  .data-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    color: var(--deep-slate);
+    padding: 24px 0 24px 32px;
+    display: flex;
+    align-items: center;
+    line-height: 1.4;
+  }
+
+  .data-value.pending {
+    color: var(--olive-mid);
+    font-style: italic;
+    font-size: 17px;
+  }
+
+  .data-value.status-active {
+    color: var(--lichen);
+  }
+
+  /* STATUS NOTE */
+  .status-note {
+    margin-top: 16px;
+    padding: 20px 28px;
+    background: var(--white-warm);
+    border-left: 2px solid var(--lichen-pale);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .status-note p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--slate);
+    line-height: 1.7;
+  }
+
+  /* DARK BLOCK — Banking */
+  .data-block-dark {
+    background: var(--deep-slate);
+    border-radius: 4px;
+    padding: 60px;
+    margin-bottom: 80px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  .data-block-dark.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .data-block-dark .block-header {
+    border-color: rgba(196,202,184,0.15);
+  }
+
+  .data-block-dark .block-numeral { color: var(--olive-mid); opacity: 0.5; }
+  .data-block-dark .block-title-italian { color: var(--stone); }
+  .data-block-dark .block-title-english { color: var(--olive-pale); }
+
+  .data-block-dark .data-row {
+    border-color: rgba(196,202,184,0.1);
+  }
+
+  .data-block-dark .data-row:first-child {
+    border-color: rgba(196,202,184,0.1);
+  }
+
+  .data-block-dark .data-label {
+    color: var(--olive-pale);
+    border-color: rgba(196,202,184,0.1);
+  }
+
+  .data-block-dark .data-value {
+    color: var(--stone);
+  }
+
+  /* VERIFICATION NOTE */
+  .verification {
+    margin-top: 32px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(196,202,184,0.15);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--lichen-pale);
+    opacity: 0.7;
+    line-height: 1.7;
+  }
+
+  .verification a {
+    color: var(--olive-pale);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .verification a:hover { color: var(--stone); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 60px;
+    text-align: center;
+  }
+
+  .footer-star {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    color: var(--olive-pale);
+    display: block;
+    margin-bottom: 20px;
+    opacity: 0.6;
+  }
+
+  .footer-name {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--lichen-pale);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .footer-reg {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    color: var(--olive-mid);
+    font-style: italic;
+    margin-bottom: 32px;
+  }
+
+  .footer-divider {
+    width: 40px;
+    height: 1px;
+    background: var(--olive-mid);
+    margin: 0 auto 32px;
+    opacity: 0.4;
+  }
+
+  .footer-nav {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+  }
+
+  .footer-nav a {
+    font-family: 'Cinzel', serif;
+    font-size: 8px;
+    letter-spacing: 0.35em;
+    color: var(--slate);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .footer-nav a:hover { color: var(--olive-pale); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .hero { padding: 140px 24px 80px; }
+    .content { padding: 60px 24px; }
+    .data-row { grid-template-columns: 1fr; }
+    .data-label { border-right: none; padding: 20px 0 8px; }
+    .data-value { padding: 0 0 20px; font-size: 18px; }
+    .data-block-dark { padding: 40px 24px; }
+    footer { padding: 60px 24px; }
+    .footer-nav { flex-direction: column; gap: 24px; }
+  }
 </style>
 </head>
+
 <body>
-<div class="wrap">
-  <p>Stella Polare Institute</p>
-  <h1>In preparation</h1>
-  <a href="/portal">← Return to Portal</a>
+
+<!-- NAV -->
+<nav>
+  <a href="https://stellapolare.institute" class="nav-logo">Stella Polare Institute</a>
+  <a href="/Portal" class="nav-back">Return to Portal</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="eyebrow">Portal · Room I · Due Diligence</p>
+  <h1 class="hero-title">La <em>Registrazione</em></h1>
+  <p class="hero-sub">Legal Standing & Institutional Record</p>
+  <div class="hero-divider"></div>
 </div>
+
+<div class="section-divider"></div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- NPC REGISTRATION -->
+  <div class="data-block">
+    <div class="block-header">
+      <span class="block-numeral">I</span>
+      <div>
+        <div class="block-title-italian">Registrazione NPC</div>
+        <div class="block-title-english">NPC Registration — CIPC</div>
+      </div>
+    </div>
+    <div class="data-rows">
+      <div class="data-row">
+        <span class="data-label">Registration Number</span>
+        <span class="data-value">2026/068067/08</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Registration Date</span>
+        <span class="data-value">2 February 2026</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Entity Type</span>
+        <span class="data-value">Non-Profit Company</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Registered Address</span>
+        <span class="data-value">4 Kanonkop, Bellville, Western Cape</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">CIPC Status</span>
+        <span class="data-value status-active">Active — Incorporated</span>
+      </div>
+    </div>
+    <div class="status-note">
+      <p>Registration is verifiable directly through the CIPC public search portal at cipc.co.za using the registration number above.</p>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- SARS -->
+  <div class="data-block" style="margin-top: 80px;">
+    <div class="block-header">
+      <span class="block-numeral">II</span>
+      <div>
+        <div class="block-title-italian">Stato Fiscale</div>
+        <div class="block-title-english">Tax Standing — SARS</div>
+      </div>
+    </div>
+    <div class="data-rows">
+      <div class="data-row">
+        <span class="data-label">Tax Exemption Status</span>
+        <span class="data-value pending">Application pending — SARS portal access being established</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Section 18A Standing</span>
+        <span class="data-value pending">Not yet applicable — will be updated upon confirmation</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Last Updated</span>
+        <span class="data-value">April 2026</span>
+      </div>
+    </div>
+    <div class="status-note">
+      <p>The Institute is in active formation. Tax exemption documentation will be published here as each milestone is confirmed. Stakeholders requiring current status confirmation may direct enquiries to connect@stellapolare.institute.</p>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- BANKING — DARK -->
+  <div class="data-block-dark" style="margin-top: 80px;">
+    <div class="block-header">
+      <span class="block-numeral">III</span>
+      <div>
+        <div class="block-title-italian">Dettagli Bancari</div>
+        <div class="block-title-english">Banking Details — FNB</div>
+      </div>
+    </div>
+    <div class="data-rows">
+      <div class="data-row">
+        <span class="data-label">Account Name</span>
+        <span class="data-value">Stella Polare Institute NPC</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Bank</span>
+        <span class="data-value">First National Bank</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Account Number</span>
+        <span class="data-value">63200985175</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Branch Code</span>
+        <span class="data-value">255355</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Swift Code</span>
+        <span class="data-value">FIRNZAJJ</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">Payment Reference</span>
+        <span class="data-value">Endowment</span>
+      </div>
+    </div>
+    <div class="verification">
+      For contribution correspondence and banking verification: <a href="mailto:anchors@stellapolare.institute">anchors@stellapolare.institute</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-star">✦</span>
+  <p class="footer-name">Stella Polare Institute</p>
+  <p class="footer-reg">Non-Profit Company · Reg. 2026/068067/08 · Stellenbosch, South Africa</p>
+  <div class="footer-divider"></div>
+  <div class="footer-nav">
+    <a href="/Portal">← Portal Hub</a>
+    <a href="/Portal/MOI">MOI →</a>
+    <a href="/Portal/Governance">Governance →</a>
+    <a href="/Portal/Corridor">Corridor →</a>
+    <a href="/Portal/Capital">Capital →</a>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.data-block, .data-block-dark').forEach(el => observer.observe(el));
+</script>
+
 </body>
 </html>
